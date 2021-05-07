@@ -9,17 +9,19 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import echarts from 'echarts'
 
+
 import './assets/css/global.css'
 
 
 Vue.prototype.$axios = axios
-axios.defaults.baseURL = '/api/hive2'  //关键代码
 Vue.prototype.$echarts = echarts
 Vue.use(ElementUI);
 Vue.use(mavonEditor)
 Vue.config.productionTip = false
 
-
+axios.defaults.baseURL = 'http://mock-api.com/vzMrDQgG.mock';
+axios.defaults.headers.post["Content-type"]="application/json";
+Vue.prototype.$axios=axios;
 
 router.beforeEach((to, from, next) => {
     /* 路由发生变化修改页面title */

@@ -1,18 +1,39 @@
 <template>
-  <div class="user_container">
-    <el-row :gutter="20">
-      <div class="Echarts">
-        <el-select v-model="value" placeholder="请选择" @change="currentSel">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
-      </div>
-    </el-row>
+  <div>
+    <div class="user_container">
+      <el-row :gutter="20">
+        <div class="Echarts">
+          <el-select v-model="value" placeholder="请选择" @change="currentSel">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+          <el-button type="primary" @click="submit">提交测试</el-button>
+        </div>
+      </el-row>
+    </div>
+    <div class="result_container">
+      <el-table :data="tableData" style="width: 100%; margin: 0 auto">
+        <el-table-column prop="testCaseId" label="TestCaseId" width="">
+        </el-table-column>
+        <el-table-column prop="edge1" label="Edge1" width=""> </el-table-column>
+        <el-table-column prop="edge2" label="Edge2" width=""> </el-table-column>
+        <el-table-column prop="edge3" label="Edge3" width=""> </el-table-column>
+        <el-table-column prop="expectedOutput" label="ExpectedOutput" width="">
+        </el-table-column>
+        <el-table-column prop="actualOutput" label="ActualOutput" width="">
+        </el-table-column>
+        <el-table-column prop="correctness" label="Correctness" width="">
+        </el-table-column>
+        <el-table-column prop="time" label="Time" width=""> </el-table-column>
+        <el-table-column prop="testerName" label="TesterName" width="">
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
@@ -20,26 +41,17 @@
 export default {
   data() {
     return {
+      tableData: [
+      ],
+
       options: [
         {
-          value: "选项1",
-          label: "黄金糕",
+          value: "1",
+          label: "边界值法",
         },
         {
-          value: "选项2",
-          label: "双皮奶",
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎",
-        },
-        {
-          value: "选项4",
-          label: "龙须面",
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭",
+          value: "2",
+          label: "等价类法",
         },
       ],
       value: "",
@@ -51,6 +63,18 @@ export default {
     currentSel(selVal) {
       this.selVal = selVal;
       this.dialogVisible = true;
+    },
+    submit() {
+      if (this.value == "") {
+        alert("请选择测试类型");
+      } else {
+        console.log(this.value);
+        this.$axios.get("/api/triangle?type="+this.value, {}).then((res) => {
+          console.log(res.data);
+          console.log(this.tableData);
+          this.tableData=res.data;
+        });
+      }
     },
   },
   mounted() {
@@ -65,5 +89,7 @@ export default {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+.user_container {
 }
 </style>
