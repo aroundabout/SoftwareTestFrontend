@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <p class="title">测试数据</p>
+    </div>
     <div class="user_container">
       <el-row :gutter="20">
         <div class="Echarts">
@@ -91,5 +94,8 @@ export default {
   align-items: center;
 }
 .user_container {
+}
+.title{
+  font-size: 30px;
 }
 </style>
