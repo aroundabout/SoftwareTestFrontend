@@ -21,19 +21,33 @@
     </div>
     <div class="result_container">
       <el-table :data="tableData" style="width: 100%; margin: 0 auto">
-        <el-table-column prop="testCaseId" label="TestCaseId" width="">
+        <el-table-column prop="TestCaseID" label="TestCaseID" width="">
         </el-table-column>
-        <el-table-column prop="host" label="Host" width=""> </el-table-column>
-        <el-table-column prop="display" label="Display" width=""> </el-table-column>
-        <el-table-column prop="peripheral" label="Peripheral" width=""> </el-table-column>
-        <el-table-column prop="expectedOutput" label="ExpectedOutput" width="">
+        <el-table-column prop="Host" label="Host" width=""> </el-table-column>
+        <el-table-column prop="Display" label="Display" width="">
         </el-table-column>
-        <el-table-column prop="actualOutput" label="ActualOutput" width="">
+        <el-table-column prop="Peripheral" label="Peripheral" width="">
         </el-table-column>
-        <el-table-column prop="correctness" label="Correctness" width="">
+        <el-table-column
+          prop="ExpectedOutput1"
+          label="ExpectedOutput2"
+          width=""
+        >
         </el-table-column>
-        <el-table-column prop="time" label="Time" width=""> </el-table-column>
-        <el-table-column prop="testerName" label="TesterName" width="">
+        <el-table-column prop="ActualOutput1" label="ActualOutput2" width="">
+        </el-table-column>
+        <el-table-column
+          prop="ExpectedOutput2"
+          label="ExpectedOutput2"
+          width=""
+        >
+        </el-table-column>
+        <el-table-column prop="ActualOutput2" label="ActualOutput2" width="">
+        </el-table-column>
+        <!-- <el-table-column prop="Correctness" label="Correctness" width="">
+        </el-table-column> -->
+        <el-table-column prop="Time" label="Time" width=""> </el-table-column>
+        <el-table-column prop="TesterName" label="TesterName" width="">
         </el-table-column>
       </el-table>
     </div>
@@ -44,8 +58,7 @@
 export default {
   data() {
     return {
-      tableData: [
-      ],
+      tableData: [],
 
       options: [
         {
@@ -72,11 +85,18 @@ export default {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        this.$axios.get("/question2/commission/"+this.value, {}).then((res) => {
-          console.log(res.data);
-          console.log(this.tableData);
-          this.tableData=res.data;
-        });
+        this.$axios
+          .get("/question3/commission/" + this.value, {})
+          .then((res) => {
+            console.log(res.data);
+          });
+        this.$axios
+          .get("/show-csv/csv/commission/" + this.value)
+          .then((res) => {
+            console.log(res.data);
+
+            this.tableData = res.data;
+          });
       }
     },
   },
@@ -95,7 +115,7 @@ export default {
 }
 .user_container {
 }
-.title{
+.title {
   font-size: 30px;
 }
 </style>

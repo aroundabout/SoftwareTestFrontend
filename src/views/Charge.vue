@@ -21,20 +21,28 @@
     </div>
     <div class="result_container">
       <el-table :data="tableData" style="width: 100%; margin: 0 auto">
-        <el-table-column prop="testCaseId" label="TestCaseId" width="">
+        <el-table-column prop="TestCaseID" label="TestCaseID" width="">
         </el-table-column>
-        <el-table-column prop="monthtalktime" label="MonthTalkTime" width=""> </el-table-column>
-        <el-table-column prop="yearunpaidnum" label="YearUnpaidNum" width=""> </el-table-column>
-        <el-table-column prop="unpaidcostacrossyear" label="UnpaidCostAcrossYear" width=""> </el-table-column>
-        <el-table-column prop="paymethod" label="PayMethod" width=""> </el-table-column>
-        <el-table-column prop="expectedOutput" label="ExpectedOutput" width="">
+        <el-table-column prop="MonthTalkTime" label="MonthTalkTime" width="">
         </el-table-column>
-        <el-table-column prop="actualOutput" label="ActualOutput" width="">
+        <el-table-column prop="YearUnpaidNum" label="YearUnpaidNum" width="">
         </el-table-column>
-        <el-table-column prop="correctness" label="Correctness" width="">
+        <el-table-column
+          prop="UnpaidCostAcrossYear"
+          label="UnpaidCostAcrossYear"
+          width=""
+        >
         </el-table-column>
-        <el-table-column prop="time" label="Time" width=""> </el-table-column>
-        <el-table-column prop="testerName" label="TesterName" width="">
+        <el-table-column prop="PayMethod" label="PayMethod" width="">
+        </el-table-column>
+        <el-table-column prop="ExpectedOutput" label="ExpectedOutput" width="">
+        </el-table-column>
+        <el-table-column prop="ActualOutput" label="ActualOutput" width="">
+        </el-table-column>
+        <!-- <el-table-column prop="Correctness" label="Correctness" width=""> -->
+        <!-- </el-table-column> -->
+        <el-table-column prop="Time" label="Time" width=""> </el-table-column>
+        <el-table-column prop="TesterName" label="TesterName" width="">
         </el-table-column>
       </el-table>
     </div>
@@ -45,8 +53,7 @@
 export default {
   data() {
     return {
-      tableData: [
-      ],
+      tableData: [],
 
       options: [
         {
@@ -81,10 +88,12 @@ export default {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        this.$axios.get("/question6/charge/"+this.value, {}).then((res) => {
+        this.$axios.get("/question6/charge/" + this.value, {}).then((res) => {
           console.log(res.data);
+        });
+        this.$axios.get("/show-csv/csv/charge/" + this.value).then((res) => {
+          this.tableData = res.data;
           console.log(this.tableData);
-          this.tableData=res.data;
         });
       }
     },
@@ -104,7 +113,7 @@ export default {
 }
 .user_container {
 }
-.title{
+.title {
   font-size: 30px;
 }
 </style>

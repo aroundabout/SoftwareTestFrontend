@@ -36,10 +36,10 @@
           <i class="el-icon-shopping-cart-full"></i>
           <a slot="title">系统</a>
         </el-menu-item>
-        <el-menu-item index="/calendarAnalysis">
+        <!-- <el-menu-item index="/calendarAnalysis">
           <i class="el-icon-shopping-cart-full"></i>
           <a slot="title">分析</a>
-        </el-menu-item>
+        </el-menu-item> -->
       </el-submenu>
     </el-menu>
   </el-aside>

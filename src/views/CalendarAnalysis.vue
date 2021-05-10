@@ -4,7 +4,7 @@
 
     <el-row :gutter="20">
 
-      <el-col :span="6" :xs="24">
+      <!-- <el-col :span="6" :xs="24">
         <el-card>
           <div>
             <el-avatar src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" />
@@ -52,8 +52,8 @@
                 prop="providerId"
                 label="供应商id">
             </el-table-column>
-            </el-table>
-      </el-col>
+            </el-table> -->
+      <!-- </el-col> -->
 
     </el-row>
   </div>

@@ -24,16 +24,16 @@
         <el-table-column prop="testCaseId" label="TestCaseId" width="">
         </el-table-column>
         <el-table-column prop="year" label="Year" width=""> </el-table-column>
-        <el-table-column prop="month" label="Month" width=""> </el-table-column>
-        <el-table-column prop="day" label="Day" width=""> </el-table-column>
-        <el-table-column prop="expectedOutput" label="ExpectedOutput" width="">
+        <el-table-column prop="Month" label="Month" width=""> </el-table-column>
+        <el-table-column prop="Day" label="Day" width=""> </el-table-column>
+        <el-table-column prop="ExpectedOutput" label="ExpectedOutput" width="">
         </el-table-column>
-        <el-table-column prop="actualOutput" label="ActualOutput" width="">
+        <el-table-column prop="ActualOutput" label="ActualOutput" width="">
         </el-table-column>
-        <el-table-column prop="correctness" label="Correctness" width="">
-        </el-table-column>
-        <el-table-column prop="time" label="Time" width=""> </el-table-column>
-        <el-table-column prop="testerName" label="TesterName" width="">
+        <!-- <el-table-column prop="Correctness" label="Correctness" width="">
+        </el-table-column> -->
+        <el-table-column prop="Time" label="Time" width=""> </el-table-column>
+        <el-table-column prop="TesterName" label="TesterName" width="">
         </el-table-column>
       </el-table>
     </div>
@@ -44,8 +44,7 @@
 export default {
   data() {
     return {
-      tableData: [
-      ],
+      tableData: [],
 
       options: [
         {
@@ -84,10 +83,14 @@ export default {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        this.$axios.get("/question8/calendar/"+this.value, {}).then((res) => {
+        this.$axios.get("/question8/calendar/" + this.value, {}).then((res) => {
           console.log(res.data);
           console.log(this.tableData);
-          this.tableData=res.data;
+          this.tableData = res.data;
+        });
+        this.$axios.get("/show-csv/csv/calendar/" + this.value).then((res) => {
+          this.tableData = res.data;
+          console.log(this.tableData[0].Correctness);
         });
       }
     },
@@ -107,7 +110,7 @@ export default {
 }
 .user_container {
 }
-.title{
+.title {
   font-size: 30px;
 }
 </style>

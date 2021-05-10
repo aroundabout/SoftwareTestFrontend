@@ -20,7 +20,7 @@ Vue.use(mavonEditor)
 Vue.config.productionTip = true
 
 axios.defaults.baseURL = 'http://47.119.122.71:5000';
-axios.defaults.headers.post["Content-type"]="application/x-www-form-urlencoded";
+// axios.defaults.headers.post["Content-type"]="application/x-www-form-urlencoded";
 Vue.prototype.$axios=axios;
 
 router.beforeEach((to, from, next) => {

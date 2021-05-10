@@ -21,19 +21,19 @@
     </div>
     <div class="result_container">
       <el-table :data="tableData" style="width: 100%; margin: 0 auto">
-        <el-table-column prop="testCaseId" label="TestCaseId" width="">
+        <el-table-column prop="TestCaseID" label="TestCaseID" width="">
         </el-table-column>
-        <el-table-column prop="edge1" label="Edge1" width=""> </el-table-column>
-        <el-table-column prop="edge2" label="Edge2" width=""> </el-table-column>
-        <el-table-column prop="edge3" label="Edge3" width=""> </el-table-column>
-        <el-table-column prop="expectedOutput" label="ExpectedOutput" width="">
+        <el-table-column prop="Edge1" label="Edge1" width=""> </el-table-column>
+        <el-table-column prop="Edge2" label="Edge2" width=""> </el-table-column>
+        <el-table-column prop="Edge3" label="Edge3" width=""> </el-table-column>
+        <el-table-column prop="ExpectedOutput" label="ExpectedOutput" width="">
         </el-table-column>
-        <el-table-column prop="actualOutput" label="ActualOutput" width="">
+        <el-table-column prop="ActualOutput" label="ActualOutput" width="">
         </el-table-column>
-        <el-table-column prop="correctness" label="Correctness" width="">
-        </el-table-column>
-        <el-table-column prop="time" label="Time" width=""> </el-table-column>
-        <el-table-column prop="testerName" label="TesterName" width="">
+        <!-- <el-table-column prop="Correctness" label="Correctness" width="">
+        </el-table-column> -->
+        <el-table-column prop="Time" label="Time" width=""> </el-table-column>
+        <el-table-column prop="TesterName" label="TesterName" width="">
         </el-table-column>
       </el-table>
     </div>
@@ -73,16 +73,14 @@ export default {
       } else {
         this.$axios.get("/question1/triangle/" + this.value, {}).then((res) => {
           console.log(res.data);
+          
         });
 
-        let obj = {
-          problem: "triangle",
-          method_type: this.value,
-        };
-        this.$axios
-          .post("/show-csv", obj)
+
+        this.$axios.get("/show-csv/csv/triangle/"+this.value,)
           .then((res) => {
-            console.log(res);
+            this.tableData=res.data;
+            console.log(this.tableData[0].Correctness);
           });
       }
     },
