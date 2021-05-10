@@ -41,19 +41,19 @@
 </template>
 
 <script>
+// import qs from "qs"
 export default {
   data() {
     return {
-      tableData: [
-      ],
+      tableData: [],
 
       options: [
         {
-          value: "1",
+          value: "boundary",
           label: "boundary",
         },
         {
-          value: "2",
+          value: "equivalence",
           label: "equivalence",
         },
       ],
@@ -71,12 +71,19 @@ export default {
       if (this.value == "") {
         alert("请选择测试类型");
       } else {
-        console.log(this.value);
-        this.$axios.get("/api/triangle?type="+this.value, {}).then((res) => {
+        this.$axios.get("/question1/triangle/" + this.value, {}).then((res) => {
           console.log(res.data);
-          console.log(this.tableData);
-          this.tableData=res.data;
         });
+
+        let obj = {
+          problem: "triangle",
+          method_type: this.value,
+        };
+        this.$axios
+          .post("/show-csv", obj)
+          .then((res) => {
+            console.log(res);
+          });
       }
     },
   },
@@ -95,7 +102,7 @@ export default {
 }
 .user_container {
 }
-.title{
+.title {
   font-size: 30px;
 }
 </style>

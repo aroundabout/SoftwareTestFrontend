@@ -50,19 +50,19 @@ export default {
 
       options: [
         {
-          value: "1",
+          value: "boundary",
           label: "boundary",
         },
         {
-          value: "2",
+          value: "equivalence",
           label: "equivalence",
         },
         {
-          value: "3",
+          value: "decision",
           label: "decision",
         },
         {
-          value: "4",
+          value: "final",
           label: "final",
         },
       ],
@@ -81,7 +81,7 @@ export default {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        this.$axios.get("/api/charge?type="+this.value, {}).then((res) => {
+        this.$axios.get("/question6/charge/"+this.value, {}).then((res) => {
           console.log(res.data);
           console.log(this.tableData);
           this.tableData=res.data;

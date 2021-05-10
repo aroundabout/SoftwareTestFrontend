@@ -12,12 +12,12 @@
         <a slot="title">三角形问题</a>
       </el-menu-item>
 
-      <el-menu-item index="/discuss">
+      <!-- <el-menu-item index="/salesManagement">
         <i class="el-icon-s-goods"></i>
         <a slot="title">讨论题-年终考核</a>
-      </el-menu-item>
+      </el-menu-item> -->
 
-      <el-menu-item index="/computer">
+      <el-menu-item index="/computerSalesManagement">
         <i class="el-icon-s-order"></i>
         <a slot="title">电脑销售系统</a>
       </el-menu-item>

@@ -17,10 +17,10 @@ Vue.prototype.$axios = axios
 Vue.prototype.$echarts = echarts
 Vue.use(ElementUI);
 Vue.use(mavonEditor)
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
-axios.defaults.baseURL = 'http://mock-api.com/vzMrDQgG.mock';
-axios.defaults.headers.post["Content-type"]="application/json";
+axios.defaults.baseURL = 'http://47.119.122.71:5000';
+axios.defaults.headers.post["Content-type"]="application/x-www-form-urlencoded";
 Vue.prototype.$axios=axios;
 
 router.beforeEach((to, from, next) => {

@@ -49,23 +49,23 @@ export default {
 
       options: [
         {
-          value: "1",
+          value: "boundary",
           label: "boundary",
         },
         {
-          value: "2",
+          value: "equivalence-weak-general",
           label: "equivalence-weak-general",
         },
         {
-          value: "3",
+          value: "equivalence-strong-general",
           label: "equivalence-strong-general",
         },
         {
-          value: "4",
+          value: "equivalence-weak-robust",
           label: "equivalence-weak-robust",
         },
         {
-          value: "5",
+          value: "equivalence-strong-robust",
           label: "equivalence-strong-robust",
         },
       ],
@@ -84,7 +84,7 @@ export default {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        this.$axios.get("/api/calendar?type="+this.value, {}).then((res) => {
+        this.$axios.get("/question8/calendar/"+this.value, {}).then((res) => {
           console.log(res.data);
           console.log(this.tableData);
           this.tableData=res.data;

@@ -49,23 +49,23 @@ export default {
 
       options: [
         {
-          value: "1",
+          value: "statement",
           label: "statement",
         },
         {
-          value: "2",
+          value: "judge",
           label: "judge",
         },
         {
-          value: "3",
+          value: "condition",
           label: "condition",
         },
         {
-          value: "4",
+          value: "judge-condition",
           label: "judge-condition",
         },
         {
-          value: "5",
+          value: "condition-combination",
           label: "condition-combination",
         },
       ],
@@ -84,7 +84,7 @@ export default {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        this.$axios.get("/api/salesmanagement?type="+this.value, {}).then((res) => {
+        this.$axios.get("/question3/commission/"+this.value, {}).then((res) => {
           console.log(res.data);
           console.log(this.tableData);
           this.tableData=res.data;

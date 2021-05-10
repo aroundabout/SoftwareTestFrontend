@@ -49,11 +49,11 @@ export default {
 
       options: [
         {
-          value: "1",
+          value: "boundary-input",
           label: "boundary-input",
         },
         {
-          value: "2",
+          value: "boundary-output",
           label: "boundary-output",
         },
       ],
@@ -72,7 +72,7 @@ export default {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        this.$axios.get("/api/computersalesmanagement?type="+this.value, {}).then((res) => {
+        this.$axios.get("/question2/commission/"+this.value, {}).then((res) => {
           console.log(res.data);
           console.log(this.tableData);
           this.tableData=res.data;
