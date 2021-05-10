@@ -23,9 +23,9 @@
       <el-table :data="tableData" style="width: 100%; margin: 0 auto">
         <el-table-column prop="testCaseId" label="TestCaseId" width="">
         </el-table-column>
-        <el-table-column prop="edge1" label="Edge1" width=""> </el-table-column>
-        <el-table-column prop="edge2" label="Edge2" width=""> </el-table-column>
-        <el-table-column prop="edge3" label="Edge3" width=""> </el-table-column>
+        <el-table-column prop="annualsales" label="AnnualSales" width=""> </el-table-column>
+        <el-table-column prop="leavedays" label="LeaveDays" width=""> </el-table-column>
+        <el-table-column prop="cashtoaccountrate" label="CashtoAccountRate" width=""> </el-table-column>
         <el-table-column prop="expectedOutput" label="ExpectedOutput" width="">
         </el-table-column>
         <el-table-column prop="actualOutput" label="ActualOutput" width="">
@@ -50,11 +50,23 @@ export default {
       options: [
         {
           value: "1",
-          label: "boundary",
+          label: "statement",
         },
         {
           value: "2",
-          label: "equivalence",
+          label: "judge",
+        },
+        {
+          value: "3",
+          label: "condition",
+        },
+        {
+          value: "4",
+          label: "judge-condition",
+        },
+        {
+          value: "5",
+          label: "condition-combination",
         },
       ],
       value: "",
@@ -72,7 +84,7 @@ export default {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        this.$axios.get("/api/triangle?type="+this.value, {}).then((res) => {
+        this.$axios.get("/api/salesmanagement?type="+this.value, {}).then((res) => {
           console.log(res.data);
           console.log(this.tableData);
           this.tableData=res.data;

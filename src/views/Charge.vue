@@ -1,122 +1,110 @@
 <template>
-
-  <div class="user_container">
-
-    <el-row :gutter="20">
-
-      <el-col :span="6" :xs="24">
-        <el-card class="user_card">
-          <div>
-            <el-avatar src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" />
-          </div>
-          <br>
-          <el-row>
-            用户编号:{{ userId }}
-          </el-row>
-          <el-row>
-            用户名:{{ username }}
-          </el-row>
-          <el-row>
-            邮箱:{{ email }}
-          </el-row>
-
-        </el-card>
-
-
-
-      </el-col>
-
-      <el-col :span="18" :xs="24">
-        <el-card class="profile_card">
-          <el-tabs v-model="activeTab">
-            <el-tab-pane v-if="true" label="基本信息" name="first">
-              <el-form :label-position="labelPosition" label-width="80px">
-                <el-form-item label="姓名">
-                  <el-input v-model="user.name" />
-                </el-form-item>
-                <el-form-item label="英文名">
-                  <el-input v-model="user.englishName" />
-                </el-form-item>
-                <el-form-item label="性别">
-                  <el-select v-model="user.gender" placeholder="请选择性别">
-                    <el-option label="男" value="male" />
-                    <el-option label="女" value="female" />
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="班级">
-                  <el-cascader
-                    :options="classroomOptions"
-                    clearable
-                    style="width: 100%"
-                  />
-                </el-form-item>
-                <el-form-item label="github">
-                  <el-input v-model="user.github">
-                    <template slot="prepend">https://github.com/</template>
-                  </el-input>
-                </el-form-item>
-                <el-form-item label="个人网站">
-                  <el-input v-model="user.website" placeholder="应以 http:// 或者 https:// 开头" />
-                </el-form-item>
-                <el-form-item label="个人简介">
-                  <mavon-editor v-model="blogContent" />
-                </el-form-item>
-              </el-form>
-            </el-tab-pane>
-
-          </el-tabs>
-        </el-card>
-      </el-col>
-
-    </el-row>
+  <div>
+    <div>
+      <p class="title">测试数据</p>
+    </div>
+    <div class="user_container">
+      <el-row :gutter="20">
+        <div class="Echarts">
+          <el-select v-model="value" placeholder="请选择" @change="currentSel">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+          <el-button type="primary" @click="submit">提交测试</el-button>
+        </div>
+      </el-row>
+    </div>
+    <div class="result_container">
+      <el-table :data="tableData" style="width: 100%; margin: 0 auto">
+        <el-table-column prop="testCaseId" label="TestCaseId" width="">
+        </el-table-column>
+        <el-table-column prop="monthtalktime" label="MonthTalkTime" width=""> </el-table-column>
+        <el-table-column prop="yearunpaidnum" label="YearUnpaidNum" width=""> </el-table-column>
+        <el-table-column prop="unpaidcostacrossyear" label="UnpaidCostAcrossYear" width=""> </el-table-column>
+        <el-table-column prop="paymethod" label="PayMethod" width=""> </el-table-column>
+        <el-table-column prop="expectedOutput" label="ExpectedOutput" width="">
+        </el-table-column>
+        <el-table-column prop="actualOutput" label="ActualOutput" width="">
+        </el-table-column>
+        <el-table-column prop="correctness" label="Correctness" width="">
+        </el-table-column>
+        <el-table-column prop="time" label="Time" width=""> </el-table-column>
+        <el-table-column prop="testerName" label="TesterName" width="">
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "User",
-  data(){
-    return{
-      userId:1,
-      username:'',
-      email:'',
+  data() {
+    return {
+      tableData: [
+      ],
 
-      labelPosition: '',
-      user: {
-        name: '',
-        englishName: '',
-        gender: '',
-        github: '',
-        website: '',
-        about: '',
-        blogContent: ''
-      },
-      classroomOptions: [{ 'label': '计算机学院（软件学院）', 'value': 101, 'children': [{ 'label': '计算机科学与技术', 'value': 10101, 'children': null }, { 'label': '网络工程', 'value': 10102, 'children': null }, { 'label': '信息管理与信息系统', 'value': 10103, 'children': null }, { 'label': '电子商务', 'value': 10104, 'children': null }, { 'label': '数据科学与大数据技术', 'value': 10105, 'children': null }, { 'label': '软件工程一班', 'value': 10106, 'children': null }, { 'label': '软件工程二班', 'value': 10107, 'children': null }] }, { 'label': '电子信息工程学院', 'value': 102, 'children': [{ 'label': '电子信息科学与技术', 'value': 10201, 'children': null }, { 'label': '通信工程', 'value': 10202, 'children': null }, { 'label': '自动化', 'value': 10203, 'children': null }, { 'label': '其他', 'value': 10204, 'children': null }] }, { 'label': '数学科学学院', 'value': 103, 'children': [{ 'label': '数学与应用数学', 'value': 10301, 'children': null }, { 'label': '信息与计算科学', 'value': 10302, 'children': null }, { 'label': '统计学', 'value': 10303, 'children': null }, { 'label': '其他', 'value': 10304, 'children': null }] }, { 'label': '经济管理学院', 'value': 104, 'children': [{ 'label': '经济学', 'value': 10401, 'children': null }, { 'label': '金融学', 'value': 10402, 'children': null }, { 'label': '金融工程', 'value': 10403, 'children': null }, { 'label': '管理科学', 'value': 10404, 'children': null }, { 'label': '人力资源管理', 'value': 10405, 'children': null }, { 'label': '市场营销', 'value': 10406, 'children': null }, { 'label': '工商管理', 'value': 10407, 'children': null }, { 'label': '会计学', 'value': 10408, 'children': null }, { 'label': '财务管理', 'value': 10409, 'children': null }, { 'label': '其他', 'value': 10410, 'children': null }] }, { 'label': '文学与新闻传播学院', 'value': 105, 'children': [{ 'label': '新闻学', 'value': 10501, 'children': null }, { 'label': '编辑出版学', 'value': 10503, 'children': null }, { 'label': '播音与主持艺术', 'value': 10503, 'children': null }, { 'label': '其他', 'value': 10504, 'children': null }] }, { 'label': '外国语学院', 'value': 106, 'children': null }, { 'label': '物理学科与技术学院', 'value': 107, 'children': null }, { 'label': '化学化工学院', 'value': 108, 'children': null }, { 'label': '生命科学学院', 'value': 109, 'children': null }, { 'label': '生态与环境学院', 'value': 110, 'children': null }, { 'label': '其他学院', 'value': 111, 'children': null }],
-      activeTab: 'first'
-
-    }
+      options: [
+        {
+          value: "1",
+          label: "boundary",
+        },
+        {
+          value: "2",
+          label: "equivalence",
+        },
+        {
+          value: "3",
+          label: "decision",
+        },
+        {
+          value: "4",
+          label: "final",
+        },
+      ],
+      value: "",
+    };
   },
-  created() {
-    this.userId=sessionStorage.getItem("userid");
-    this.getUserInformation();
-    this.getAcceptProblem();
+  created() {},
+  methods: {
+    myEcharts() {},
+    currentSel(selVal) {
+      this.selVal = selVal;
+      this.dialogVisible = true;
+    },
+    submit() {
+      if (this.value == "") {
+        alert("请选择测试类型");
+      } else {
+        console.log(this.value);
+        this.$axios.get("/api/charge?type="+this.value, {}).then((res) => {
+          console.log(res.data);
+          console.log(this.tableData);
+          this.tableData=res.data;
+        });
+      }
+    },
   },
-  methods:{
-    getUserInformation:function (){
-    }
-  }
-}
+  mounted() {
+    this.myEcharts();
+  },
+};
 </script>
 
 <style scoped>
-
-.user_card {
-  margin-top: 10px;
-  margin-left: 10px;
+.Echarts {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
-
-.profile_card {
-  margin-top: 10px;
-  margin-right: 10px;
+.user_container {
+}
+.title{
+  font-size: 30px;
 }
 </style>

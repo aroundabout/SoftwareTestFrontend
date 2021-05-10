@@ -1,143 +1,113 @@
 <template>
-  <div class="page">
-
-    <el-card class="box" shadow="always">
-      <el-row class="title">
-        <h2>注册</h2>
+  <div>
+    <div>
+      <p class="title">测试数据</p>
+    </div>
+    <div class="user_container">
+      <el-row :gutter="20">
+        <div class="Echarts">
+          <el-select v-model="value" placeholder="请选择" @change="currentSel">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+          <el-button type="primary" @click="submit">提交测试</el-button>
+        </div>
       </el-row>
-      <el-form label-width="0">
-        <el-form-item>
-          <i class="el-icon-user"></i>
-          <el-input class="form-input" v-model="username" placeholder="用户名">
-          </el-input>
-        </el-form-item>
-
-        <el-form-item>
-          <i class="el-icon-s-goods"></i>
-          <el-input class="form-input" v-model="password" placeholder="密码" show-password>
-          </el-input>
-        </el-form-item>
-
-        <el-form-item >
-          <i class="el-icon-s-goods"></i>
-          <el-input class="form-input" v-model="confirmPassword" placeholder="确认密码" show-password>
-          </el-input>
-        </el-form-item>
-
-        <el-form-item >
-          <i class="el-icon-message"></i>
-          <el-input class="form-input" v-model="email" placeholder="邮箱">
-          </el-input>
-        </el-form-item>
-
-        <el-form-item>
-          <i class="el-icon-position"></i>
-          <el-input class="form-input verifyCode" v-model="verifyCode" placeholder="验证码">
-          </el-input>
-          <el-button type="primary" class="form-button btnCode" v-on:click="getVerifyCode" round>获取验证码</el-button>
-        </el-form-item>
-
-        <el-form-item class="register">
-          <el-button type="primary" class="form-button" v-on:click="register" round>注册</el-button>
-          <el-button type="primary" class="form-button" v-on:click="toLogin" round>去登陆</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
+    </div>
+    <div class="result_container">
+      <el-table :data="tableData" style="width: 100%; margin: 0 auto">
+        <el-table-column prop="testCaseId" label="TestCaseId" width="">
+        </el-table-column>
+        <el-table-column prop="year" label="Year" width=""> </el-table-column>
+        <el-table-column prop="month" label="Month" width=""> </el-table-column>
+        <el-table-column prop="day" label="Day" width=""> </el-table-column>
+        <el-table-column prop="expectedOutput" label="ExpectedOutput" width="">
+        </el-table-column>
+        <el-table-column prop="actualOutput" label="ActualOutput" width="">
+        </el-table-column>
+        <el-table-column prop="correctness" label="Correctness" width="">
+        </el-table-column>
+        <el-table-column prop="time" label="Time" width=""> </el-table-column>
+        <el-table-column prop="testerName" label="TesterName" width="">
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Register',
   data() {
     return {
-      username:'',
-      password:'',
-      confirmPassword:'',
-      email:'',
-      verifyCode:'',
-    }
+      tableData: [
+      ],
+
+      options: [
+        {
+          value: "1",
+          label: "boundary",
+        },
+        {
+          value: "2",
+          label: "equivalence-weak-general",
+        },
+        {
+          value: "3",
+          label: "equivalence-strong-general",
+        },
+        {
+          value: "4",
+          label: "equivalence-weak-robust",
+        },
+        {
+          value: "5",
+          label: "equivalence-strong-robust",
+        },
+      ],
+      value: "",
+    };
+  },
+  created() {},
+  methods: {
+    myEcharts() {},
+    currentSel(selVal) {
+      this.selVal = selVal;
+      this.dialogVisible = true;
+    },
+    submit() {
+      if (this.value == "") {
+        alert("请选择测试类型");
+      } else {
+        console.log(this.value);
+        this.$axios.get("/api/calendar?type="+this.value, {}).then((res) => {
+          console.log(res.data);
+          console.log(this.tableData);
+          this.tableData=res.data;
+        });
+      }
+    },
   },
   mounted() {
-    document.querySelector('body').setAttribute('style', 'background-color: aliceblue')
+    this.myEcharts();
   },
-  beforeDestroy() {
-    document.querySelector('body').removeAttribute('style')
-  },
-  methods:{
-    getVerifyCode:function() {
-
-    },
-
-    register:function() {
-     
-    },
-
-    toLogin:function(){
-      location="./login";
-    }
-
-
-  }
-}
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.page {
+.Echarts {
   width: 100%;
-  /* height: 100%;
-  background-color: aliceblue; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
-
-.box {
-  width: 30%;
-  margin-top: 100px;
-  margin-left: 35%;
+.user_container {
 }
-
-.title {
-  text-align: center;
-}
-
-.form-input {
-  width: 80%;
-}
-
-.verifyCode {
-  width: 55%;
-}
-
-#verifyCode {
-  margin-right: 10%;
-}
-
-.el-icon-user {
-  font-size: 25px;
-  margin: 0 20px;
-}
-
-.el-icon-s-goods {
-  font-size: 25px;
-  margin: 0 20px;
-}
-
-.el-icon-message {
-  font-size: 25px;
-  margin: 0 20px;
-}
-
-.el-icon-position {
-  font-size: 25px;
-  margin: 0 20px;
-}
-
-.btnCode {
-  margin-left: 15px;
-  padding: 11px;
-}
-
-.register {
-  text-align: center;
+.title{
+  font-size: 30px;
 }
 </style>
