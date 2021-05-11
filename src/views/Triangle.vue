@@ -73,15 +73,20 @@ export default {
       } else {
         this.$axios.get("/question1/triangle/" + this.value, {}).then((res) => {
           console.log(res.data);
-          
+          window.alert(
+            "True:" +
+              res.data.True +
+              " False:" +
+              res.data.False +
+              " acc:" +
+              res.data.accuracy
+          );
         });
 
-
-        this.$axios.get("/show-csv/csv/triangle/"+this.value,)
-          .then((res) => {
-            this.tableData=res.data;
-            console.log(this.tableData[0].Correctness);
-          });
+        this.$axios.get("/show-csv/csv/triangle/" + this.value).then((res) => {
+          this.tableData = res.data;
+          console.log(this.tableData[0].Correctness);
+        });
       }
     },
   },

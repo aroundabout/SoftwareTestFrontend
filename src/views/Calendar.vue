@@ -21,9 +21,9 @@
     </div>
     <div class="result_container">
       <el-table :data="tableData" style="width: 100%; margin: 0 auto">
-        <el-table-column prop="testCaseId" label="TestCaseId" width="">
+        <el-table-column prop="TestCaseID" label="TestCaseID" width="">
         </el-table-column>
-        <el-table-column prop="year" label="Year" width=""> </el-table-column>
+        <el-table-column prop="Year" label="Year" width=""> </el-table-column>
         <el-table-column prop="Month" label="Month" width=""> </el-table-column>
         <el-table-column prop="Day" label="Day" width=""> </el-table-column>
         <el-table-column prop="ExpectedOutput" label="ExpectedOutput" width="">
@@ -86,7 +86,7 @@ export default {
         this.$axios.get("/question8/calendar/" + this.value, {}).then((res) => {
           console.log(res.data);
           console.log(this.tableData);
-          this.tableData = res.data;
+          window.alert("True:"+res.data.True+" False:"+res.data.False+" acc:"+res.data.accuracy)
         });
         this.$axios.get("/show-csv/csv/calendar/" + this.value).then((res) => {
           this.tableData = res.data;

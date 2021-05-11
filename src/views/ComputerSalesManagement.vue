@@ -89,6 +89,14 @@ export default {
           .get("/question3/commission/" + this.value, {})
           .then((res) => {
             console.log(res.data);
+            window.alert(
+              "True:" +
+                res.data.True +
+                " False:" +
+                res.data.False +
+                " acc:" +
+                res.data.accuracy
+            );
           });
         this.$axios
           .get("/show-csv/csv/commission/" + this.value)
