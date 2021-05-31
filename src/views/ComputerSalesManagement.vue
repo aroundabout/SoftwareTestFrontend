@@ -30,11 +30,11 @@
         </el-table-column>
         <el-table-column
           prop="ExpectedOutput1"
-          label="ExpectedOutput2"
+          label="ExpectedOutput1"
           width=""
         >
         </el-table-column>
-        <el-table-column prop="ActualOutput1" label="ActualOutput2" width="">
+        <el-table-column prop="ActualOutput1" label="ActualOutput1" width="">
         </el-table-column>
         <el-table-column
           prop="ExpectedOutput2"

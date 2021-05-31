@@ -70,7 +70,7 @@ export default {
         },
         {
           value: "final",
-          label: "final",
+          label: "boundary+equivalence",
         },
       ],
       value: "",
