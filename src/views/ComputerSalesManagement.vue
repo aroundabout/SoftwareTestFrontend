@@ -6,7 +6,11 @@
     <div class="user_container">
       <el-row :gutter="20">
         <div class="Echarts">
-          <el-select v-model="version" placeholder="请选择" @change="currentVersionSel">
+          <el-select
+            v-model="version"
+            placeholder="请选择"
+            @change="currentVersionSel"
+          >
             <el-option
               v-for="item in versionOptions"
               :key="item.value"
@@ -28,6 +32,7 @@
         </div>
       </el-row>
     </div>
+    <div>result:{{ result }}</div>
     <div class="result_container">
       <el-table :data="tableData" style="width: 100%; margin: 0 auto">
         <el-table-column prop="TestCaseID" label="TestCaseID" width="">
@@ -65,6 +70,8 @@
 export default {
   data() {
     return {
+      result: "",
+
       tableData: [],
 
       options: [
@@ -77,17 +84,18 @@ export default {
           label: "boundary-output",
         },
       ],
-      versionOptions:[
-          {
-            value:"v1",
-            label:"v1"
-          },{
-            value:"v2",
-            label:"v2"
-          }
+      versionOptions: [
+        {
+          value: "v1",
+          label: "v1",
+        },
+        {
+          value: "v2",
+          label: "v2",
+        },
       ],
       value: "",
-      version:""
+      version: "",
     };
   },
   created() {},
@@ -97,31 +105,36 @@ export default {
       this.selVal = selVal;
       this.dialogVisible = true;
     },
-    currentVersionSel(versionValue){
-      this.version=versionValue
+    currentVersionSel(versionValue) {
+      this.version = versionValue;
     },
     submit() {
       if (this.value == "") {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        var url="/question3/commission/" + this.value
-        if( this.version!=""){
-          url+="/"+this.version
+        var url = "/question3/commission/" + this.value;
+        if (this.version != "") {
+          url += "/" + this.version;
         }
-        this.$axios
-          .get(url, {})
-          .then((res) => {
-            console.log(res.data);
-            window.alert(
-              "True:" +
-                res.data.True +
-                " False:" +
-                res.data.False +
-                " acc:" +
-                res.data.accuracy
-            );
-          });
+        this.$axios.get(url, {}).then((res) => {
+          console.log(res.data);
+          window.alert(
+            "True:" +
+              res.data.True +
+              " False:" +
+              res.data.False +
+              " acc:" +
+              res.data.accuracy
+          );
+          this.result =
+            "True:" +
+            res.data.True +
+            " False:" +
+            res.data.False +
+            " acc:" +
+            res.data.accuracy;
+        });
         this.$axios
           .get("/show-csv/csv/commission/" + this.value)
           .then((res) => {

@@ -19,6 +19,7 @@
         </div>
       </el-row>
     </div>
+
     <div class="result_container">
       <el-table :data="tableData" style="width: 100%; margin: 0 auto">
         <el-table-column prop="testCaseId" label="TestCaseId" width="">

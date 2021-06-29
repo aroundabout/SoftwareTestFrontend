@@ -19,6 +19,8 @@
         </div>
       </el-row>
     </div>
+    <div>result:{{ result }}</div>
+
     <div class="result_container">
       <el-table :data="tableData" style="width: 100%; margin: 0 auto">
         <el-table-column prop="TestCaseID" label="TestCaseID" width="">
@@ -53,6 +55,8 @@
 export default {
   data() {
     return {
+      result: "",
+
       tableData: [],
 
       options: [
@@ -98,6 +102,13 @@ export default {
               " acc:" +
               res.data.accuracy
           );
+          this.result =
+            "True:" +
+            res.data.True +
+            " False:" +
+            res.data.False +
+            " acc:" +
+            res.data.accuracy;
         });
         this.$axios.get("/show-csv/csv/charge/" + this.value).then((res) => {
           this.tableData = res.data;

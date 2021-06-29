@@ -6,7 +6,11 @@
     <div class="user_container">
       <el-row :gutter="20">
         <div class="Echarts">
-          <el-select v-model="version" placeholder="请选择" @change="currentVersionSel">
+          <el-select
+            v-model="version"
+            placeholder="请选择"
+            @change="currentVersionSel"
+          >
             <el-option
               v-for="item in versionOptions"
               :key="item.value"
@@ -28,6 +32,7 @@
         </div>
       </el-row>
     </div>
+    <div>result:{{ result }}</div>
     <div class="result_container">
       <el-table :data="tableData" style="width: 100%; margin: 0 auto">
         <el-table-column prop="TestCaseID" label="TestCaseID" width="">
@@ -53,15 +58,17 @@
 export default {
   data() {
     return {
+      result: "",
       tableData: [],
-      versionOptions:[
+      versionOptions: [
         {
-          value:"v1",
-          label:"v1"
-        },{
-          value:"v2",
-          label:"v2"
-        }
+          value: "v1",
+          label: "v1",
+        },
+        {
+          value: "v2",
+          label: "v2",
+        },
       ],
       options: [
         {
@@ -86,7 +93,7 @@ export default {
         },
       ],
       value: "",
-      version:"",
+      version: "",
     };
   },
   created() {},
@@ -96,22 +103,36 @@ export default {
       this.selVal = selVal;
       this.dialogVisible = true;
     },
-    currentVersionSel(veriosnValue){
-      this.version=veriosnValue
+    currentVersionSel(veriosnValue) {
+      this.version = veriosnValue;
     },
     submit() {
       if (this.value == "") {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        var url="/question8/calendar/" + this.value
-        if(this.version!=""){
-          url+="/"+this.version
+        var url = "/question8/calendar/" + this.value;
+        if (this.version != "") {
+          url += "/" + this.version;
         }
         this.$axios.get(url, {}).then((res) => {
           console.log(res.data);
           console.log(this.tableData);
-          window.alert("True:"+res.data.True+" False:"+res.data.False+" acc:"+res.data.accuracy)
+          window.alert(
+            "True:" +
+              res.data.True +
+              " False:" +
+              res.data.False +
+              " acc:" +
+              res.data.accuracy
+          );
+          this.result =
+            "True:" +
+            res.data.True +
+            " False:" +
+            res.data.False +
+            " acc:" +
+            res.data.accuracy;
         });
         this.$axios.get("/show-csv/csv/calendar/" + this.value).then((res) => {
           this.tableData = res.data;
