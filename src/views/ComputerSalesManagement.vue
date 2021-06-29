@@ -6,6 +6,15 @@
     <div class="user_container">
       <el-row :gutter="20">
         <div class="Echarts">
+          <el-select v-model="version" placeholder="请选择" @change="currentVersionSel">
+            <el-option
+              v-for="item in versionOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
           <el-select v-model="value" placeholder="请选择" @change="currentSel">
             <el-option
               v-for="item in options"
@@ -44,8 +53,6 @@
         </el-table-column>
         <el-table-column prop="ActualOutput2" label="ActualOutput2" width="">
         </el-table-column>
-        <!-- <el-table-column prop="Correctness" label="Correctness" width="">
-        </el-table-column> -->
         <el-table-column prop="Time" label="Time" width=""> </el-table-column>
         <el-table-column prop="TesterName" label="TesterName" width="">
         </el-table-column>
@@ -70,7 +77,17 @@ export default {
           label: "boundary-output",
         },
       ],
+      versionOptions:[
+          {
+            value:"v1",
+            label:"v1"
+          },{
+            value:"v2",
+            label:"v2"
+          }
+      ],
       value: "",
+      version:""
     };
   },
   created() {},
@@ -80,13 +97,20 @@ export default {
       this.selVal = selVal;
       this.dialogVisible = true;
     },
+    currentVersionSel(versionValue){
+      this.version=versionValue
+    },
     submit() {
       if (this.value == "") {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
+        var url="/question3/commission/" + this.value
+        if( this.version!=""){
+          url+="/"+this.version
+        }
         this.$axios
-          .get("/question3/commission/" + this.value, {})
+          .get(url, {})
           .then((res) => {
             console.log(res.data);
             window.alert(
@@ -102,7 +126,6 @@ export default {
           .get("/show-csv/csv/commission/" + this.value)
           .then((res) => {
             console.log(res.data);
-
             this.tableData = res.data;
           });
       }

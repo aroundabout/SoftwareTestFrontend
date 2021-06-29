@@ -9,7 +9,7 @@
 
       <el-menu-item index="/triangle">
         <i class="el-icon-menu"></i>
-        <a slot="title">三角形问题</a>
+        <a slot="title">练习1 三角形问题</a>
       </el-menu-item>
 
       <!-- <el-menu-item index="/salesManagement">
@@ -19,28 +19,18 @@
 
       <el-menu-item index="/computerSalesManagement">
         <i class="el-icon-s-order"></i>
-        <a slot="title">电脑销售系统</a>
+        <a slot="title">练习3电脑销售系统</a>
       </el-menu-item>
 
       <el-menu-item index="/charge">
         <i class="el-icon-s-order"></i>
-        <a slot="title">电信收费系统</a>
+        <a slot="title">练习6电信收费系统</a>
       </el-menu-item>
 
-      <el-submenu index="/" class="submenu">
-        <template slot="title">
-          <i class="el-icon-shopping-cart-full"></i>
-          <a slot="title">万年历问题</a>
-        </template>
         <el-menu-item index="/calendar">
-          <i class="el-icon-shopping-cart-full"></i>
-          <a slot="title">系统</a>
-        </el-menu-item>
-        <!-- <el-menu-item index="/calendarAnalysis">
-          <i class="el-icon-shopping-cart-full"></i>
-          <a slot="title">分析</a>
-        </el-menu-item> -->
-      </el-submenu>
+        <i class="el-icon-s-order"></i>
+        <a slot="title">练习8万年历问题</a>
+      </el-menu-item>
     </el-menu>
   </el-aside>
 </template>

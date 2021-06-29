@@ -6,6 +6,15 @@
     <div class="user_container">
       <el-row :gutter="20">
         <div class="Echarts">
+          <el-select v-model="version" placeholder="请选择" @change="currentVersionSel">
+            <el-option
+              v-for="item in versionOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
           <el-select v-model="value" placeholder="请选择" @change="currentSel">
             <el-option
               v-for="item in options"
@@ -45,7 +54,15 @@ export default {
   data() {
     return {
       tableData: [],
-
+      versionOptions:[
+        {
+          value:"v1",
+          label:"v1"
+        },{
+          value:"v2",
+          label:"v2"
+        }
+      ],
       options: [
         {
           value: "boundary",
@@ -69,6 +86,7 @@ export default {
         },
       ],
       value: "",
+      version:"",
     };
   },
   created() {},
@@ -78,12 +96,19 @@ export default {
       this.selVal = selVal;
       this.dialogVisible = true;
     },
+    currentVersionSel(veriosnValue){
+      this.version=veriosnValue
+    },
     submit() {
       if (this.value == "") {
         alert("请选择测试类型");
       } else {
         console.log(this.value);
-        this.$axios.get("/question8/calendar/" + this.value, {}).then((res) => {
+        var url="/question8/calendar/" + this.value
+        if(this.version!=""){
+          url+="/"+this.version
+        }
+        this.$axios.get(url, {}).then((res) => {
           console.log(res.data);
           console.log(this.tableData);
           window.alert("True:"+res.data.True+" False:"+res.data.False+" acc:"+res.data.accuracy)
